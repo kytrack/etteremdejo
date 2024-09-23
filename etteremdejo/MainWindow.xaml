@@ -124,7 +124,7 @@
 
                     <!-- Full Name field -->
                     <TextBlock Foreground="White" Text="Full Name" FontSize="14" Margin="0,5"/>
-                    <TextBox>
+                    <TextBox x:Name="txtrUsername">
                         <TextBox.Style>
                             <Style TargetType="TextBox">
                                 <Setter Property="Template">
@@ -145,7 +145,7 @@
 
                     <!-- Email field -->
                     <TextBlock Foreground="White" Text="Email" FontSize="14" Margin="0,10,0,5"/>
-                    <TextBox>
+                    <TextBox x:Name="txtrEmail">
                         <TextBox.Style>
                             <Style TargetType="TextBox">
                                 <Setter Property="Template">
@@ -166,12 +166,12 @@
 
                     <!-- Password field -->
                     <TextBlock Foreground="White" Text="Password" FontSize="14" Margin="0,10,0,5"/>
-                    <TextBox>
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
+                    <PasswordBox x:Name="txtrPassword">
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox">
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
+                                        <ControlTemplate TargetType="PasswordBox">
                                             <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
@@ -182,17 +182,17 @@
                                     </Setter.Value>
                                 </Setter>
                             </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        </PasswordBox.Style>
+                    </PasswordBox>
 
                     <!-- Confirm Password field -->
                     <TextBlock Foreground="White" Text="Confirm Password" FontSize="14" Margin="0,10,0,5"/>
-                    <TextBox>
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
+                    <PasswordBox  x:Name="txtrcPassword">
+                        <PasswordBox.Style>
+                            <Style TargetType="PasswordBox">
                                 <Setter Property="Template">
                                     <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
+                                        <ControlTemplate TargetType="PasswordBox">
                                             <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
@@ -203,11 +203,15 @@
                                     </Setter.Value>
                                 </Setter>
                             </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                        </PasswordBox.Style>
+                    </PasswordBox>
 
                     <!-- Register Button -->
-                    <Button Content="Register" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand">
+                    <Button x:Name="btnRegister"
+                            Content="Register" Width="200"
+                            Height="40" HorizontalAlignment="Center"
+                            VerticalAlignment="Center" Cursor="Hand"
+                            Click="btnRegister_Click">
                         <Button.Style>
                             <Style TargetType="Button">
                                 <Setter Property="Template">

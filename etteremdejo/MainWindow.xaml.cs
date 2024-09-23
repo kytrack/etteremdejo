@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Security.Cryptography;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 
 namespace etteremdejo
@@ -95,5 +96,70 @@ namespace etteremdejo
                 return builder.ToString();
             }
         }
-    } 
+
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            string username = txtrUsername.Text;
+            string email = txtrEmail.Text;
+            string password = txtrPassword.Password;
+            string cpassword = txtrcPassword.Password;
+
+            // Ellenőrzések
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(cpassword))
+            {
+                MessageBox.Show("Minden mezőt ki kell tölteni!");
+                return;
+            }
+
+            if (password != cpassword)
+            {
+                MessageBox.Show("A jelszavak nem egyeznek!");
+                return;
+            }
+
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Az e-mail formátuma nem érvényes!");
+                return;
+            }
+
+            // Ellenőrizze, hogy a felhasználónév vagy az e-mail foglalt-e
+            if (IsUsernameOrEmailTaken(username, email))
+            {
+                MessageBox.Show("A felhasználónév vagy az e-mail cím már foglalt!");
+                return;
+            }
+
+            MessageBox.Show("Regisztráció sikeres!");
+
+        }
+        private bool IsValidEmail(string email)
+        {
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, emailPattern);
+        }
+
+        private bool IsUsernameOrEmailTaken(string username, string email)
+        {
+            
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username OR Email = @Email";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    command.Parameters.AddWithValue("@Email", email);
+
+                    // Helyes típusként castoljuk az eredményt
+                    long userCount = (long)command.ExecuteScalar();
+                    return userCount > 0;
+                }
+            }
+        }
+
+    }
 }
