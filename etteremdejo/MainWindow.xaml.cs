@@ -27,14 +27,11 @@ namespace etteremdejo
         {
             InitializeComponent();
         }
-        // Switch to Registration form
         private void SwitchToRegister(object sender, RoutedEventArgs e)
         {
             LoginPanel.Visibility = Visibility.Collapsed;
             RegistrationPanel.Visibility = Visibility.Visible;
         }
-
-        // Switch to Login form
         private void SwitchToLogin(object sender, RoutedEventArgs e)
         {
             RegistrationPanel.Visibility = Visibility.Collapsed;
@@ -72,17 +69,54 @@ namespace etteremdejo
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //var user = new User
-            //{
-            //    Username = "Imre Krsztián",
-            //    Email = "anyad@gmail.com",
-            //    Password = "asdasd",
-            //    Role = "user"
-            //};
-            var user = new User("Imre Krsztián", "anyad@gmail.com", "asdasd", "user");
+            string username = txtlUsername.Text;
+            string password = txtlPassword.Password;
 
-            AddUserToDatabase(user);
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Felhasználónév és jelszó kitöltése kötelező!");
+                return;
+            }
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                string query = "SELECT password_hash FROM Users WHERE username = @username";
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    connection.Open();
+
+                    try
+                    {
+                        object result = command.ExecuteScalar();
+
+                        if (result != null)
+                        {
+                            string storedHash = result.ToString();
+                            string enteredHash = ComputeSha256Hash(password);
+
+                            if (storedHash == enteredHash)
+                            {
+                                MessageBox.Show("Sikeres bejelentkezés!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Hibás jelszó!");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Nincs ilyen felhasználónév!");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Hiba történt a bejelentkezés során: " + ex.Message);
+                    }
+                }
+            }
         }
+
         private string ComputeSha256Hash(string rawData)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -105,7 +139,6 @@ namespace etteremdejo
             string password = txtrPassword.Password;
             string cpassword = txtrcPassword.Password;
 
-            // Ellenőrzések
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(cpassword))
             {
                 MessageBox.Show("Minden mezőt ki kell tölteni!");
@@ -124,13 +157,13 @@ namespace etteremdejo
                 return;
             }
 
-            // Ellenőrizze, hogy a felhasználónév vagy az e-mail foglalt-e
             if (IsUsernameOrEmailTaken(username, email))
             {
                 MessageBox.Show("A felhasználónév vagy az e-mail cím már foglalt!");
                 return;
             }
-
+            var user = new User(username, email, password, "user");
+            AddUserToDatabase(user);
             MessageBox.Show("Regisztráció sikeres!");
 
         }
@@ -153,12 +186,29 @@ namespace etteremdejo
                 {
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Email", email);
+                    
 
-                    // Helyes típusként castoljuk az eredményt
                     long userCount = (long)command.ExecuteScalar();
                     return userCount > 0;
                 }
             }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+        private void btnTalca_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnKilep_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
 
     }
