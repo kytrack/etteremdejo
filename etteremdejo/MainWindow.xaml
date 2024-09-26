@@ -9,254 +9,254 @@
          Height="480" 
          Width="853" 
          WindowStartupLocation="CenterScreen" 
-         Background="#f0f0f0"
+         Background="Transparent"
          AllowsTransparency="True"
-         WindowStyle="None"  MouseDown="Window_MouseDown">
-    
-    <Grid>
-        <Grid.Background>
+         WindowStyle="None"  MouseDown="Window_MouseDown" >
+    <Border CornerRadius="25">
+        <Border.Background>
             <ImageBrush ImageSource="\images\loginbackground.png"/>
-        </Grid.Background>
-
-        <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,25,0">
-            <Button Foreground="White" FontSize="25" x:Name="btnTalca" Content="-" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btnTalca_Click"/>
-            <Button Foreground="White" FontSize="25" x:Name="btnKilep" Content="x" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnKilep_Click"/>
-        </StackPanel>
-        <!-- Background for the form -->
-        <Border CornerRadius="10" BorderBrush="#007ACC" BorderThickness="2" Padding="20"
+        </Border.Background>
+        <Grid>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,25,0">
+                <Button Foreground="White" FontSize="25" x:Name="btnTalca" Content="-" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btnTalca_Click"/>
+                <Button Foreground="White" FontSize="25" x:Name="btnKilep" Content="x" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnKilep_Click"/>
+            </StackPanel>
+            <!-- Background for the form -->
+            <Border CornerRadius="10" BorderBrush="#007ACC" BorderThickness="2" Padding="20"
             Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,20,0"
             Background="#26FFFFFF">
 
-            <!-- Apply blur effect -->
+                <!-- Apply blur effect -->
 
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="37*"/>
-                    <RowDefinition Height="262*"/>
-                </Grid.RowDefinitions>
-                <!-- Login Form -->
-                <StackPanel x:Name="LoginPanel" Visibility="Visible" Grid.RowSpan="2">
-                    <!-- Title -->
-                    <TextBlock Text="Welcome Back" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,10,0,20"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="37*"/>
+                        <RowDefinition Height="262*"/>
+                    </Grid.RowDefinitions>
+                    <!-- Login Form -->
+                    <StackPanel x:Name="LoginPanel" Visibility="Visible" Grid.RowSpan="2">
+                        <!-- Title -->
+                        <TextBlock Text="Welcome Back" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,10,0,20"/>
 
-                    <!-- Username field -->
-                    <TextBlock Foreground="White" Text="Username" FontSize="14" Margin="0,5"/>
-                    <TextBox x:Name="txtlUsername">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border Background="White" 
+                        <!-- Username field -->
+                        <TextBlock Foreground="White" Text="Username" FontSize="14" Margin="0,5"/>
+                        <TextBox x:Name="txtlUsername">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="White" 
                                         BorderBrush="Gray" 
                                         BorderThickness="2" 
                                         CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
 
-                    <!-- Password field -->
-                    <TextBlock Foreground="White" Text="Password" FontSize="14" Margin="0,10,0,5"/>
-                    <PasswordBox x:Name="txtlPassword">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="PasswordBox">
-                                            <Border Background="White" 
+                        <!-- Password field -->
+                        <TextBlock Foreground="White" Text="Password" FontSize="14" Margin="0,10,0,5"/>
+                        <PasswordBox x:Name="txtlPassword">
+                            <PasswordBox.Style>
+                                <Style TargetType="PasswordBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="PasswordBox">
+                                                <Border Background="White" 
                       BorderBrush="Gray" 
                       BorderThickness="2" 
                       CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </PasswordBox.Style>
-                    </PasswordBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </PasswordBox.Style>
+                        </PasswordBox>
 
-                    <!-- Login Button -->
-                    <Button x:Name="btnLogin" Content="Login" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnLogin_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="#007ACC" 
+                        <!-- Login Button -->
+                        <Button x:Name="btnLogin" Content="Login" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="btnLogin_Click" Margin="0,10,0,10">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="#007ACC" 
                                         BorderBrush="Gray" 
                                         BorderThickness="2" 
                                         CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-
-                    <!-- Switch to registration -->
-                    <Button Content="Register" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Click="SwitchToRegister">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="LightBlue" 
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button Content="Register" Width="200" Height="40" Cursor="Hand" Click="SwitchToRegister">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="LightBlue" 
                                         BorderBrush="Gray" 
                                         BorderThickness="2" 
                                         CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </StackPanel>
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
 
-                <!-- Registration Form -->
-                <StackPanel x:Name="RegistrationPanel" Visibility="Collapsed" Grid.RowSpan="2">
-                    <!-- Title -->
-                    <TextBlock Text="Create Account" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,10,0,20"/>
+                        <!-- Switch to registration -->
+                    </StackPanel>
 
-                    <!-- Full Name field -->
-                    <TextBlock Foreground="White" Text="Full Name" FontSize="14" Margin="0,5"/>
-                    <TextBox x:Name="txtrUsername">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border Background="White" 
+                    <!-- Registration Form -->
+                    <StackPanel x:Name="RegistrationPanel" Visibility="Collapsed" Grid.RowSpan="2">
+                        <!-- Title -->
+                        <TextBlock Text="Create Account" FontSize="24" FontWeight="Bold" Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,10,0,20"/>
+
+                        <!-- Full Name field -->
+                        <TextBlock Foreground="White" Text="Full Name" FontSize="14" Margin="0,5"/>
+                        <TextBox x:Name="txtrUsername">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
                     CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
 
-                    <!-- Email field -->
-                    <TextBlock Foreground="White" Text="Email" FontSize="14" Margin="0,10,0,5"/>
-                    <TextBox x:Name="txtrEmail">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border Background="White" 
+                        <!-- Email field -->
+                        <TextBlock Foreground="White" Text="Email" FontSize="14" Margin="0,10,0,5"/>
+                        <TextBox x:Name="txtrEmail">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
                     CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
 
-                    <!-- Password field -->
-                    <TextBlock Foreground="White" Text="Password" FontSize="14" Margin="0,10,0,5"/>
-                    <PasswordBox x:Name="txtrPassword">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="PasswordBox">
-                                            <Border Background="White" 
+                        <!-- Password field -->
+                        <TextBlock Foreground="White" Text="Password" FontSize="14" Margin="0,10,0,5"/>
+                        <PasswordBox x:Name="txtrPassword">
+                            <PasswordBox.Style>
+                                <Style TargetType="PasswordBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="PasswordBox">
+                                                <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
                     CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </PasswordBox.Style>
-                    </PasswordBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </PasswordBox.Style>
+                        </PasswordBox>
 
-                    <!-- Confirm Password field -->
-                    <TextBlock Foreground="White" Text="Confirm Password" FontSize="14" Margin="0,10,0,5"/>
-                    <PasswordBox  x:Name="txtrcPassword">
-                        <PasswordBox.Style>
-                            <Style TargetType="PasswordBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="PasswordBox">
-                                            <Border Background="White" 
+                        <!-- Confirm Password field -->
+                        <TextBlock Foreground="White" Text="Confirm Password" FontSize="14" Margin="0,10,0,5"/>
+                        <PasswordBox  x:Name="txtrcPassword">
+                            <PasswordBox.Style>
+                                <Style TargetType="PasswordBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="PasswordBox">
+                                                <Border Background="White" 
                     BorderBrush="Gray" 
                     BorderThickness="2" 
                     CornerRadius="10">
-                                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </PasswordBox.Style>
-                    </PasswordBox>
+                                                    <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </PasswordBox.Style>
+                        </PasswordBox>
 
-                    <!-- Register Button -->
-                    <Button x:Name="btnRegister"
+                        <!-- Register Button -->
+                        <Button x:Name="btnRegister"
                             Content="Register" Width="200"
                             Height="40" HorizontalAlignment="Center"
                             VerticalAlignment="Center" Cursor="Hand"
-                            Click="btnRegister_Click">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="LightBlue" 
+                            Click="btnRegister_Click" Margin="0,10,0,10">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="LightBlue" 
                                         BorderBrush="Gray" 
                                         BorderThickness="2" 
                                         CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
 
-                    <!-- Switch to login -->
-                    <Button Content="Back to Login" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"  Cursor="Hand" Click="SwitchToLogin">
-                        <Button.Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Background="LightBlue" 
+                        <!-- Switch to login -->
+                        <Button Content="Back to Login" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"  Cursor="Hand" Click="SwitchToLogin">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="LightBlue" 
                                         BorderBrush="Gray" 
                                         BorderThickness="2" 
                                         CornerRadius="10">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-    </Grid>
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

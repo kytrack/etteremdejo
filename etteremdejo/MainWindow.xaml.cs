@@ -77,6 +77,7 @@ namespace etteremdejo
                 MessageBox.Show("Felhasználónév és jelszó kitöltése kötelező!");
                 return;
             }
+            //ALTER TABLE foods ADD COLUMN image_url VARCHAR(255);
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -98,6 +99,11 @@ namespace etteremdejo
                             if (storedHash == enteredHash)
                             {
                                 MessageBox.Show("Sikeres bejelentkezés!");
+                                Kaja kajaWindow = new Kaja();
+                                kajaWindow.Show();
+
+                                
+                                this.Hide();
                             }
                             else
                             {
