@@ -19,7 +19,7 @@ namespace etteremdejo
         public Kaja()
         {
             InitializeComponent();
-            if (GetUserRole()=="admin")
+            if (GetUserRole() == "admin")
             {
                 btnadmin.Visibility = Visibility.Visible;
             }
@@ -212,8 +212,8 @@ namespace etteremdejo
 
         private void RendelesLeadasa(object sender, RoutedEventArgs e)
         {
-            int userId = GetUserId(); // Implementáld a felhasználó azonosítójának lekérését
-            List<CartItem> cartItems = GetCartItems(); // Kosár elemek lekérése
+            int userId = GetUserId();
+            List<CartItem> cartItems = GetCartItems();
 
             if (cartItems.Count > 0)
             {
@@ -224,26 +224,33 @@ namespace etteremdejo
                     {
                         try
                         {
-                            // 1. Insert order
+                            // Check if there are enough ingredients in stock
+                            if (!CheckIngredientAvailability(connection, transaction, cartItems))
+                            {
+                                return;
+                            }
+
+                            // Insert the order
                             var orderId = InsertOrder(connection, transaction, userId);
 
-                            // 2. Insert order items
+                            // Insert the order items
                             foreach (var item in cartItems)
                             {
                                 InsertOrderItem(connection, transaction, orderId, item);
                             }
 
-                            // 3. Commit the transaction
+                            // Update the ingredient stock after a successful order
+                            UpdateIngredientStock(connection, transaction, cartItems);
+
+                            // Commit the transaction
                             transaction.Commit();
 
                             // Clear the cart after a successful order
-                            Cart.Clear(); // This line clears the cart
-
-                            MessageBox.Show("Rendelés sikeresen leadva!"); // Notify user of success
+                            Cart.Clear();
+                            MessageBox.Show("Rendelés sikeresen leadva!");
                         }
                         catch (Exception ex)
                         {
-                            // Rollback the transaction in case of error
                             transaction.Rollback();
                             MessageBox.Show("Hiba történt a rendelés leadásakor: " + ex.Message);
                         }
@@ -255,6 +262,70 @@ namespace etteremdejo
                 MessageBox.Show("A kosarad üres!");
             }
         }
+        private bool CheckIngredientAvailability(MySqlConnection connection, MySqlTransaction transaction, List<CartItem> cartItems)
+        {
+            foreach (var item in cartItems)
+            {
+                string query = @"
+            SELECT ingredients.id, ingredients.quantity_in_stock, food_ingredients.quantity_required 
+            FROM ingredients
+            JOIN food_ingredients ON food_ingredients.ingredient_id = ingredients.id
+            WHERE food_ingredients.food_id = @foodId";
+
+                using (var cmd = new MySqlCommand(query, connection, transaction))
+                {
+                    cmd.Parameters.AddWithValue("@foodId", item.FoodId);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            decimal stockQuantity = reader.GetDecimal("quantity_in_stock"); // Use decimal for precise stock quantities
+                            decimal requiredQuantity = reader.GetDecimal("quantity_required") * item.Quantity; // Calculate required quantity
+
+                            if (stockQuantity < requiredQuantity)
+                            {
+                                MessageBox.Show($"Nincs elegendő alapanyag {item.FoodId} termékhez. Készlet: {stockQuantity} kg, szükséges: {requiredQuantity} kg.");
+                                return false; // Not enough stock for this item
+                            }
+
+                            if (stockQuantity <= 0)
+                            {
+                                MessageBox.Show($"A {item.FoodId} alapanyagból nincs raktáron.");
+                                return false; // No stock available
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+
+
+
+        private void UpdateIngredientStock(MySqlConnection connection, MySqlTransaction transaction, List<CartItem> cartItems)
+        {
+            foreach (var item in cartItems)
+            {
+                string query = @"
+            UPDATE ingredients
+            JOIN food_ingredients ON food_ingredients.ingredient_id = ingredients.id
+            SET ingredients.quantity_in_stock = ingredients.quantity_in_stock - (food_ingredients.quantity_required * @quantity)
+            WHERE food_ingredients.food_id = @foodId";
+
+                using (var cmd = new MySqlCommand(query, connection, transaction))
+                {
+                    cmd.Parameters.AddWithValue("@foodId", item.FoodId);
+                    cmd.Parameters.AddWithValue("@quantity", item.Quantity);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
 
         private int InsertOrder(MySqlConnection connection, MySqlTransaction transaction, int userId)
         {
@@ -353,7 +424,7 @@ namespace etteremdejo
         {
             string[] userData = File.ReadAllLines(userFilePath);
             string username = userData[0];
-            string passwordHash = userData[1]; 
+            string passwordHash = userData[1];
             string role = "";
             string connectionString = "Server=localhost;Database=restaurant_app;User ID=root;Password=;";
 
@@ -391,6 +462,23 @@ namespace etteremdejo
             Adminpanel adminpanel = new Adminpanel();
             adminpanel.ShowDialog();
         }
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+        private void btnTalca_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void btnKilep_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
     }
 
     public class Food
@@ -410,3 +498,4 @@ namespace etteremdejo
         public decimal TotalPrice { get; set; }
     }
 }
+

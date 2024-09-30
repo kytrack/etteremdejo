@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 30, 2024 at 03:31 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2024. Sze 30. 09:51
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `restaurant_app`
+-- Adatbázis: `restaurant_app`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `foods`
+-- Tábla szerkezet ehhez a táblához `foods`
 --
 
 CREATE TABLE `foods` (
@@ -37,7 +37,7 @@ CREATE TABLE `foods` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `foods`
+-- A tábla adatainak kiíratása `foods`
 --
 
 INSERT INTO `foods` (`id`, `name`, `description`, `price`, `created_at`, `image_url`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `foods` (`id`, `name`, `description`, `price`, `created_at`, `image_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `food_ingredients`
+-- Tábla szerkezet ehhez a táblához `food_ingredients`
 --
 
 CREATE TABLE `food_ingredients` (
@@ -64,10 +64,42 @@ CREATE TABLE `food_ingredients` (
   `quantity_required` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- A tábla adatainak kiíratása `food_ingredients`
+--
+
+INSERT INTO `food_ingredients` (`food_id`, `ingredient_id`, `quantity_required`) VALUES
+(1, 1, 0.50),
+(1, 2, 0.30),
+(1, 3, 0.10),
+(2, 4, 0.50),
+(2, 5, 0.25),
+(2, 6, 0.10),
+(2, 7, 0.10),
+(3, 8, 1.00),
+(3, 9, 0.20),
+(3, 10, 0.10),
+(3, 11, 0.05),
+(4, 12, 1.00),
+(4, 13, 0.50),
+(5, 14, 0.20),
+(5, 15, 0.05),
+(6, 16, 0.25),
+(6, 17, 0.05),
+(7, 18, 0.30),
+(7, 19, 0.10),
+(8, 20, 0.50),
+(8, 21, 0.10),
+(9, 22, 0.25),
+(9, 23, 0.05),
+(10, 24, 0.25),
+(10, 25, 0.10),
+(10, 26, 0.05);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingredients`
+-- Tábla szerkezet ehhez a táblához `ingredients`
 --
 
 CREATE TABLE `ingredients` (
@@ -78,7 +110,7 @@ CREATE TABLE `ingredients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ingredients`
+-- A tábla adatainak kiíratása `ingredients`
 --
 
 INSERT INTO `ingredients` (`id`, `name`, `quantity_in_stock`, `unit`) VALUES
@@ -113,7 +145,7 @@ INSERT INTO `ingredients` (`id`, `name`, `quantity_in_stock`, `unit`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Tábla szerkezet ehhez a táblához `orders`
 --
 
 CREATE TABLE `orders` (
@@ -124,16 +156,18 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `orders`
+-- A tábla adatainak kiíratása `orders`
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `order_date`, `status`) VALUES
-(1, 3, '2024-09-30 00:55:15', 'pending');
+(1, 3, '2024-09-30 00:55:15', 'pending'),
+(2, 2, '2024-09-30 06:05:32', 'pending'),
+(3, 3, '2024-09-30 07:45:12', 'pending');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order_items`
+-- Tábla szerkezet ehhez a táblához `order_items`
 --
 
 CREATE TABLE `order_items` (
@@ -145,16 +179,21 @@ CREATE TABLE `order_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `order_items`
+-- A tábla adatainak kiíratása `order_items`
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `food_id`, `quantity`, `total_price`) VALUES
-(1, 1, 1, 1, 8.99);
+(1, 1, 1, 1, 8.99),
+(2, 2, 1, 3, 26.97),
+(3, 2, 1, 3, 26.97),
+(4, 2, 1, 3, 26.97),
+(5, 2, 2, 1, 5.49),
+(6, 3, 1, 1, 8.99);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tábla szerkezet ehhez a táblához `users`
 --
 
 CREATE TABLE `users` (
@@ -167,7 +206,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- A tábla adatainak kiíratása `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `registration_date`) VALUES
@@ -176,37 +215,37 @@ INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `regist
 (3, 'a', 'a@g.com', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', 'user', '2024-09-26 09:49:01');
 
 --
--- Indexes for dumped tables
+-- Indexek a kiírt táblákhoz
 --
 
 --
--- Indexes for table `foods`
+-- A tábla indexei `foods`
 --
 ALTER TABLE `foods`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `food_ingredients`
+-- A tábla indexei `food_ingredients`
 --
 ALTER TABLE `food_ingredients`
   ADD PRIMARY KEY (`food_id`,`ingredient_id`),
   ADD KEY `ingredient_id` (`ingredient_id`);
 
 --
--- Indexes for table `ingredients`
+-- A tábla indexei `ingredients`
 --
 ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `orders`
+-- A tábla indexei `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
 --
--- Indexes for table `order_items`
+-- A tábla indexei `order_items`
 --
 ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`),
@@ -214,7 +253,7 @@ ALTER TABLE `order_items`
   ADD KEY `food_id` (`food_id`);
 
 --
--- Indexes for table `users`
+-- A tábla indexei `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -222,58 +261,58 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
--- AUTO_INCREMENT for table `foods`
+-- AUTO_INCREMENT a táblához `foods`
 --
 ALTER TABLE `foods`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `ingredients`
+-- AUTO_INCREMENT a táblához `ingredients`
 --
 ALTER TABLE `ingredients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT a táblához `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `order_items`
+-- AUTO_INCREMENT a táblához `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Constraints for dumped tables
+-- Megkötések a kiírt táblákhoz
 --
 
 --
--- Constraints for table `food_ingredients`
+-- Megkötések a táblához `food_ingredients`
 --
 ALTER TABLE `food_ingredients`
   ADD CONSTRAINT `food_ingredients_ibfk_1` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `food_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `orders`
+-- Megkötések a táblához `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `order_items`
+-- Megkötések a táblához `order_items`
 --
 ALTER TABLE `order_items`
   ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
