@@ -63,7 +63,7 @@ namespace etteremdejo
                                         // Sikeres automatikus bejelentkezés
                                         Kaja kajaWindow = new Kaja();
                                         kajaWindow.Show();
-                                        this.Hide();
+                                        this.Close();
                                     }
                                 }
                             }
@@ -114,7 +114,7 @@ namespace etteremdejo
 
                                 Kaja kajaWindow = new Kaja();
                                 kajaWindow.Show();
-                                this.Hide();
+                                this.Close();
                             }
                             else
                             {

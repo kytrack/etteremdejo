@@ -8,7 +8,7 @@
             <StackPanel Margin="10">
                 <Button Content="Főoldal" Foreground="White" Background="#333333" 
                         FontSize="16" Height="40" Margin="0,10,0,0" 
-                        BorderThickness="0" Padding="10">
+                        BorderThickness="0" Padding="10" Click="ShowFoods">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" 
@@ -18,36 +18,39 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                
-                <Button Content="Beállítások" Foreground="White" Background="#333333" 
-                        FontSize="16" Height="40" Margin="0,10,0,0" 
-                        BorderThickness="0" Padding="10">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" 
-                                    CornerRadius="10" Padding="{TemplateBinding Padding}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                
-                <Button Content="Fiók" Foreground="White" Background="#333333" 
-                        FontSize="16" Height="40" Margin="0,10,0,0" 
-                        BorderThickness="0" Padding="10">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" 
-                                    CornerRadius="10" Padding="{TemplateBinding Padding}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                
+
                 <Button Content="Kosár" Foreground="White" Background="#333333" 
                         FontSize="16" Height="40" Margin="0,10,0,0" 
-                        BorderThickness="0" Padding="10">
+                        BorderThickness="0" Padding="10" Click="ShowCart">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                    CornerRadius="10" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+                <Button Content="Kijelentkezés" Foreground="White" Background="#333333" 
+        FontSize="16" Height="40" Margin="0,10,0,0" 
+        BorderThickness="0" Padding="10" Click="KijelentkezesButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                    CornerRadius="10" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+
+                <Button Visibility="Hidden" x:Name="btnadmin" Content="Admin panel" Foreground="White" Background="#333333" 
+                        FontSize="16" Height="40" Margin="0,10,0,0" 
+                        BorderThickness="0" Padding="10" Click="btnadmin_Click">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" 
@@ -62,10 +65,8 @@
 
         <!-- Right-side Content -->
         <Grid Margin="210,0,0,0">
-            <TextBlock Text="Válasszon egy ételt:" Foreground="White" FontSize="24" Margin="0,10,0,10"/>
-
-            <!-- ScrollViewer hozzáadása az ételekhez -->
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <!-- Foods ScrollViewer -->
+            <ScrollViewer Name="FoodsScrollViewer" VerticalScrollBarVisibility="Auto" Margin="0,0,0,50">
                 <ItemsControl ItemsSource="{Binding Foods}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -78,7 +79,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Image Placeholder -->
-                                    <Image Source = "{Binding ImageUrl}" Width = "100" Height = "100" Stretch = "UniformToFill" />
+                                    <Image Source="{Binding ImageUrl}" Width="100" Height="100" Stretch="UniformToFill" />
 
                                     <!-- Food Details -->
                                     <StackPanel Grid.Column="1" Margin="10,0,0,0">
@@ -88,15 +89,98 @@
                                     </StackPanel>
 
                                     <!-- Add to Cart Button -->
-                                    <Button Content="Kosárba" Grid.Column="2" Width="100" Height="40" 
+                                    <Button Name="btnKosarba" Content="Kosárba" Grid.Column="2" Width="100" Height="40" 
                                             Background="#FF6347" Foreground="White" BorderThickness="0" 
-                                            Padding="5"/>
+                                            Padding="5" Click="AddToCart"/>
+
+                                    <StackPanel x:Name="tobbAdd" Orientation="Horizontal" Grid.Column="2" Height="30px" Margin="30px 0px 0px 0px" Visibility="Collapsed">
+                                        <Button Content="-" Height="30" Width="30" Click="btnElvesz" 
+                                                Background="#FF6347" Foreground="White" FontSize="16" 
+                                                FontWeight="Bold" BorderThickness="0" Padding="0"
+                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                            CornerRadius="15" 
+                                                            Padding="{TemplateBinding Padding}" 
+                                                            BorderBrush="{TemplateBinding BorderBrush}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+
+                                        <Label Content="1" FontSize="16" FontWeight="Bold" 
+                                               Foreground="White" HorizontalContentAlignment="Center" 
+                                               VerticalContentAlignment="Center" Background="#2A2A2A" 
+                                               Width="40" Height="30" BorderThickness="0" 
+                                               HorizontalAlignment="Center" x:Name="lblMennyiseg"/>
+                                        <Button Content="+" Height="30" Width="30" Click="btnHozzaad" 
+                                                Background="#FF6347" Foreground="White" FontSize="16" 
+                                                FontWeight="Bold" BorderThickness="0" Padding="0"
+                                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                            CornerRadius="15" 
+                                                            Padding="{TemplateBinding Padding}" 
+                                                            BorderBrush="{TemplateBinding BorderBrush}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
+            <!-- Fixed Button at the Bottom -->
+            <Button Content="Hozzáadás a kosárhoz" Width="200" Height="40" 
+                    Background="#FF6347" Foreground="White" 
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                    Margin="0,0,0,10" Click="AddAllToCart" 
+                    Panel.ZIndex="1" x:Name="btnAddAllToCart"/>
+
+
         </Grid>
+
+        <!-- Cart ScrollViewer -->
+        <ScrollViewer Name="CartScrollViewer" VerticalScrollBarVisibility="Auto" Visibility="Collapsed" Margin="210,0,0,0">
+            <ItemsControl ItemsSource="{Binding Cart}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#2A2A2A" CornerRadius="10" Padding="10" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontSize="18" Foreground="White"/>
+                                <TextBlock Text="{Binding Price, StringFormat='{}{0:C}'}" FontSize="14" Foreground="LightGray"/>
+                                <Button Content="Törlés" Width="50px" Height="30px" HorizontalAlignment="Left" 
+        Background="Red" Foreground="White" FontSize="14" 
+        FontWeight="Bold" BorderThickness="0" Padding="5" 
+        Click="DeleteFromCart" x:Name="btnDeleteFromCart">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" 
+                    CornerRadius="10" Padding="{TemplateBinding Padding}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Content="Rendelés leadása" Width="200" Height="40" 
+        Background="#FF6347" Foreground="White" 
+        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+        Margin="0,0,0,10" Click="RendelesLeadasa" 
+        Panel.ZIndex="1" x:Name="btnRendeles" Visibility="Collapsed"/>
     </Grid>
 </Window>

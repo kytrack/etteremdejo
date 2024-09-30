@@ -1,0 +1,58 @@
+﻿<Window x:Class="etteremdejo.ModifyIngredientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Módosítás" Height="170" Width="400"
+               FontFamily="Segoe UI"
+       Foreground="#E0E0E0"  WindowStartupLocation="CenterScreen" 
+Background="Transparent"
+AllowsTransparency="True"
+WindowStyle="None"  MouseDown="Window_MouseDown">
+    <Border CornerRadius="25"  Background="#2B2B2B">
+        <Grid>
+            <Grid.Resources>
+                <!-- Button style with ControlTemplate for hover effect and hand cursor -->
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="#FF4C4C"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="BorderBrush" Value="#FF4C4C"/>
+                    <Setter Property="Cursor" Value="Arrow"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" 
+                                  BorderBrush="{TemplateBinding BorderBrush}" 
+                                  BorderThickness="1" 
+                                  CornerRadius="3">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover trigger: background becomes transparent and cursor changes -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+            <StackPanel Margin="20">
+                <Button Name="btnClose" Content="X" Click="btnClose_Click" Width="20" Height="20" Margin="0,0,-340,0"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Alapanyag név:" VerticalAlignment="Center" Width="100"/>
+                    <TextBox Background="#4C4C4C" Foreground="White" BorderBrush="#707070" Name="IngredientNameBox" Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Mennyiség:" VerticalAlignment="Center" Width="100"/>
+                    <TextBox Background="#4C4C4C" Foreground="White" BorderBrush="#707070" Name="IngredientQuantityBox" Width="200" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Mértékegység:" VerticalAlignment="Center" Width="100"/>
+                    <TextBox Background="#4C4C4C" Foreground="White" BorderBrush="#707070" Name="IngredientUnitBox" Width="200" />
+                </StackPanel>
+                <Button Name="SaveChangesButton" Content="Módosítás" Width="100" Margin="5" Click="SaveChanges_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
