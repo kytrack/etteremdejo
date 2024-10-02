@@ -24,6 +24,7 @@ Ez az alkalmazás egy étterem asztali felülete, ahol a felhasználók regisztr
 ### 4. Rendelés Végrehajtása és Készlet Levonás
 - A rendelések leadásakor az étel alapanyagainak megfelelő mennyisége automatikusan levonásra kerül a raktárkészletből.
 - Ha a készlet nem elegendő, a rendszer figyelmezteti a felhasználót, hogy az étel nem rendelhető.
+![Projekt Képernyőkép](./images/screenshot3.png)
 
 ## Fejlesztési Folyamat
 
