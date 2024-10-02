@@ -1,4 +1,4 @@
-# Étterem Asztali Alkalmazás
+# Étterem App
 ## Projekt Leírása
 
 Ez az alkalmazás egy étterem asztali felülete, ahol a felhasználók regisztrálhatnak, bejelentkezhetnek, és ételeket rendelhetnek. Az adminisztrátorok kezelhetik az ételek és azok alapanyagainak készletét, frissíthetik a raktárkészletet, és levonhatják az alapanyagokat a rendelések végrehajtásakor.
@@ -50,4 +50,4 @@ A kódbázis központi tárolására és a verziók nyomon követésére Git ver
 
 2. **Projekt Klónozása**:
    ```bash
-   git clone https://github.com/felhasznalo/etterem-projekt.git
+   git clone https://github.com/kytrack/etteremdejo.git
