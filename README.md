@@ -19,7 +19,7 @@ Ez az alkalmazás egy étterem asztali felülete, ahol a felhasználók regisztr
 ### 3. Alapanyag Kezelés (Adminisztrátor Funkció)
 - Az adminisztrátorok új alapanyagokat adhatnak hozzá, módosíthatják vagy törölhetik a meglévőket.
 - A raktári készlet aktuális állapota nyomon követhető és frissíthető.
-![Projekt Képernyőkép](./images/screenshot3.png)
+![Projekt Képernyőkép](./images/screenshot4.png)
 
 ### 4. Rendelés Végrehajtása és Készlet Levonás
 - A rendelések leadásakor az étel alapanyagainak megfelelő mennyisége automatikusan levonásra kerül a raktárkészletből.
